@@ -1,0 +1,10 @@
+# docker
+.dockerignore
+Dockerfile
+
+# git
+.git
+.gitignore
+README.md
+
+vendor
