@@ -7,4 +7,9 @@ Dockerfile
 .gitignore
 README.md
 
+# still figuring out dep
 vendor
+
+# scripts
+run-deploy.sh
+deploy-to-aws-ecs.sh
