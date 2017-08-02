@@ -28,27 +28,31 @@ func Start(port int) Server {
 
 	app.WrapRouter(corsWrapper)
 
-	app.Get("/characters", func(ctx context.Context) {
+	app.Get("/", func(ctx context.Context) {
+		ctx.StatusCode(200)
+	})
+
+	app.Get("/api/characters", func(ctx context.Context) {
 		ctx.JSON(context.Map{"characters": Characters})
 	})
 
-	app.Get("/characters/:id", func(ctx context.Context) {
+	app.Get("/api/characters/:id", func(ctx context.Context) {
 		GetOne(ctx, Characters)
 	})
 
-	app.Get("/planets", func(ctx context.Context) {
+	app.Get("/api/planets", func(ctx context.Context) {
 		ctx.JSON(context.Map{"planets": Planets})
 	})
 
-	app.Get("/planets/:id", func(ctx context.Context) {
+	app.Get("/api/planets/:id", func(ctx context.Context) {
 		GetOne(ctx, Planets)
 	})
 
-	app.Get("/starships", func(ctx context.Context) {
+	app.Get("/api/starships", func(ctx context.Context) {
 		ctx.JSON(context.Map{"starships": Starships})
 	})
 
-	app.Get("/starships/:id", func(ctx context.Context) {
+	app.Get("/api/starships/:id", func(ctx context.Context) {
 		GetOne(ctx, Starships)
 	})
 

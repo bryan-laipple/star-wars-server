@@ -71,7 +71,7 @@ update_ecs() {
 	)
 }
 
-#check_version
+check_version
 build_docker_image
 push_to_ecr
-#update_ecs
+update_ecs
