@@ -13,3 +13,6 @@ vendor
 # scripts
 run-deploy.sh
 deploy-to-aws-ecs.sh
+
+# etl not needed for app in docker
+etl

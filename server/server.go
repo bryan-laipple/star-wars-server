@@ -9,7 +9,7 @@ import (
 type Server *iris.Application
 
 func GetOne(ctx context.Context, list []Summary) {
-	id, err := ctx.Params().GetInt("id");
+	id, err := ctx.Params().GetInt("id")
 	if err != nil {
 		ctx.StatusCode(400)
 	}
@@ -58,5 +58,5 @@ func Start(port int) Server {
 
 	app.Run(iris.Addr(":8080"))
 
-	return app;
+	return app
 }
