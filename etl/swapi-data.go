@@ -9,53 +9,25 @@ import (
 	"github.com/leejarvis/swapi"
 	//"github.com/aws/aws-sdk-go/aws"
 	"encoding/json"
+	"strconv"
+	"strings"
 )
 
-//func GetList(url string, structType interface{}) interface{} {
-//	//resultValue := reflect.ValueOf(resultType)
-//	//listType := reflect.SliceOf(resultValue.Type())
-//	resultType := reflect.TypeOf(structType)
-//	listType := reflect.SliceOf(resultType)
-//	fmt.Printf("listType = %s\n", listType.String())
-//	list := reflect.MakeSlice(listType, 0, 0)
-//
-//	var err error
-//	for url != "" {
-//		var res struct {
-//			Count    int      `json:"count"`
-//			Next     string   `json:"next"`
-//			Previous string   `json:"previous"`
-//			Results  []map[string]interface{} `json:"results"`
-//		}
-//		if err = swapi.Get(url, &res); err != nil {
-//			fmt.Printf(url)
-//		}
-//		url = res.Next
-//		for _, person := range res.Results {
-//			fmt.Printf("%+v\n", person)
-//			// TODO problem here because person is a map and I'm trying to add map to slice of etl.Person
-//			val := reflect.ValueOf(person)
-//			reflect.AppendSlice(list, val)
-//		}
-//	}
-//	return list.Interface()
-//}
+type PagedResponse struct {
+	Count    int                      `json:"count"`
+	Next     string                   `json:"next"`
+	Previous string                   `json:"previous"`
+	Results  []map[string]interface{} `json:"results"`
+}
 
 func GetList(url string) (list []map[string]interface{}, err error) {
 	for url != "" {
-		var res struct {
-			Count    int                      `json:"count"`
-			Next     string                   `json:"next"`
-			Previous string                   `json:"previous"`
-			Results  []map[string]interface{} `json:"results"`
-		}
+		var res PagedResponse
 		if err = swapi.Get(url, &res); err != nil {
 			return
 		}
 		url = res.Next
-		for _, one := range res.Results {
-			list = append(list, one)
-		}
+		list = append(list, res.Results...)
 	}
 	return
 }
@@ -88,6 +60,65 @@ func BuildDynamoDBTable() {
 	}
 
 	fmt.Println(result)
+}
+
+func DataStuffWithGenericMap() {
+	urlToName := make(map[string]string)
+	people, err := GetList("https://swapi.co/api/people/")
+	if err != nil {
+		fmt.Printf("some error occured")
+	}
+	for _, person := range people {
+		urlToName[person["url"].(string)] = person["name"].(string)
+	}
+
+	films, err := GetList("https://swapi.co/api/films/")
+	if err != nil {
+		fmt.Printf("some error occured")
+	}
+	for _, film := range films {
+		urlToName[film["url"].(string)] = film["title"].(string)
+	}
+
+	starships, err := GetList("https://swapi.co/api/starships/")
+	if err != nil {
+		fmt.Printf("some error occured")
+	}
+	for _, starship := range starships {
+		urlToName[starship["url"].(string)] = starship["name"].(string)
+	}
+
+	species, err := GetList("https://swapi.co/api/species/")
+	if err != nil {
+		fmt.Printf("some error occured")
+	}
+	for _, sp := range species {
+		urlToName[sp["url"].(string)] = sp["name"].(string)
+	}
+
+	planets, err := GetList("https://swapi.co/api/planets/")
+	if err != nil {
+		fmt.Printf("some error occured")
+	}
+	for _, planet := range planets {
+		urlToName[planet["url"].(string)] = planet["name"].(string)
+	}
+
+
+	fmt.Printf("%+v\n", urlToName)
+}
+
+func toId(url string) (int, error) {
+	offset := 1
+	if strings.HasSuffix(url, "/") {
+		offset = 2
+	}
+	split := strings.Split(url, "/")
+	return strconv.Atoi(split[len(split)-offset])
+}
+
+func toKey(typ string, id int) string {
+	return strings.Join([]string{typ, ":", strconv.Itoa(id)}, "")
 }
 
 func DataStuff() {
@@ -133,8 +164,12 @@ func DataStuff() {
 	}
 
 	// TODO URL to Id...somehow
-	for i, person := range people {
-		people[i].Homeworld = urlToName[person.Homeworld] // TODO why? we must get shallow copy perhaps
+	for i, _ := range people {
+		person := &people[i]
+		person.Id, err = toId(person.URL) // TODO error
+		person.Type = "people"
+		person.Key = toKey(person.Type, person.Id)
+		person.Homeworld = urlToName[person.Homeworld]
 		for i, film := range person.Films {
 			person.Films[i] = urlToName[film]
 		}
@@ -146,7 +181,8 @@ func DataStuff() {
 		}
 	}
 
-	for _, starship := range starships {
+	for i, _ := range starships {
+		starship := &starships[i]
 		for i, film := range starship.Films {
 			starship.Films[i] = urlToName[film]
 		}
@@ -155,7 +191,8 @@ func DataStuff() {
 		}
 	}
 
-	for _, planet := range planets {
+	for i, _ := range planets {
+		planet := &planets[i]
 		for i, film := range planet.Films {
 			planet.Films[i] = urlToName[film]
 		}
@@ -177,17 +214,11 @@ func DataStuff() {
 	//fmt.Printf("%+v\n", data)
 	jsonData, _ := json.Marshal(&data)
 	fmt.Println(string(jsonData))
+
+	//WriteBatchToDynamoDB(people)// TODO https://golang.org/doc/faq#convert_slice_of_interface
 }
 
-func WriteBatchToDynamoDB() {
-	url := "https://swapi.co/api/people/"
-	var list []map[string]interface{}
-	var err error
-	if list, err = GetList(url); err != nil {
-		fmt.Printf("some error occurred")
-		return
-	}
-	//fmt.Printf("%+v\n", list)
+func WriteBatchToDynamoDB(list []interface{}) {
 	itemList := make([]map[string]*dynamodb.AttributeValue, len(list), len(list))
 	for i, one := range list {
 		var item map[string]*dynamodb.AttributeValue

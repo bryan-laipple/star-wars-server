@@ -4,7 +4,12 @@ import (
 	"github.com/leejarvis/swapi"
 )
 
-type Film swapi.Film
+type Film struct {
+	Id   int    `json:"id"`
+	Type string `json:"type"`
+	Key  string `json:"key"`
+	swapi.Film
+}
 
 type FilmsResponse struct {
 	Count    int    `json:"count"`

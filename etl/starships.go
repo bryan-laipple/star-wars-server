@@ -4,7 +4,12 @@ import (
 	"github.com/leejarvis/swapi"
 )
 
-type Starship swapi.Starship
+type Starship struct {
+	Id   int    `json:"id"`
+	Type string `json:"type"`
+	Key  string `json:"key"`
+	swapi.Starship
+}
 
 type StarshipsResponse struct {
 	Count    int        `json:"count"`

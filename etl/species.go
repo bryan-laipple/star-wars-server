@@ -4,7 +4,12 @@ import (
 	"github.com/leejarvis/swapi"
 )
 
-type Species swapi.Species
+type Species struct {
+	Id   int    `json:"id"`
+	Type string `json:"type"`
+	Key  string `json:"key"`
+	swapi.Species
+}
 
 type SpeciesResponse struct {
 	Count    int       `json:"count"`

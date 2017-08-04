@@ -4,7 +4,12 @@ import (
 	"github.com/leejarvis/swapi"
 )
 
-type Planet swapi.Planet
+type Planet struct {
+	Id   int    `json:"id"`
+	Type string `json:"type"`
+	Key  string `json:"key"`
+	swapi.Planet
+}
 
 type PlanetsResponse struct {
 	Count    int      `json:"count"`

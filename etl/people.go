@@ -4,7 +4,12 @@ import (
 	"github.com/leejarvis/swapi"
 )
 
-type Person swapi.Person
+type Person struct {
+	Id   int    `json:"id"`
+	Type string `json:"type"`
+	Key  string `json:"key"`
+	swapi.Person
+}
 
 type PeopleResponse struct {
 	Count    int      `json:"count"`
