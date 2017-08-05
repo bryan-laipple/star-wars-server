@@ -5,9 +5,7 @@ import (
 )
 
 type Person struct {
-	Id   int    `json:"id"`
-	Type string `json:"type"`
-	Key  string `json:"key"`
+	DynamoDBKey
 	swapi.Person
 }
 

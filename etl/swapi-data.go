@@ -2,50 +2,66 @@ package etl
 
 import (
 	"fmt"
+	"strings"
+
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"github.com/leejarvis/swapi"
-	//"github.com/aws/aws-sdk-go/aws"
-	"encoding/json"
-	"strconv"
-	"strings"
 )
 
-type PagedResponse struct {
-	Count    int                      `json:"count"`
-	Next     string                   `json:"next"`
-	Previous string                   `json:"previous"`
-	Results  []map[string]interface{} `json:"results"`
+type DynamoDBKey struct {
+	Type string `json:"type"`
+	Id   string `json:"id"`
 }
 
-func GetList(url string) (list []map[string]interface{}, err error) {
-	for url != "" {
-		var res PagedResponse
-		if err = swapi.Get(url, &res); err != nil {
-			return
-		}
-		url = res.Next
-		list = append(list, res.Results...)
+type swapiData struct {
+	People    []Person   `json:"people"`
+	Starships []Starship `json:"starships"`
+	Planets   []Planet   `json:"planets"`
+}
+
+const TABLE_NAME = "StarWars"
+
+func createTable(svc *dynamodb.DynamoDB) (success bool) {
+	input := &dynamodb.CreateTableInput{
+		AttributeDefinitions: []*dynamodb.AttributeDefinition{
+			{
+				AttributeName: aws.String("type"),
+				AttributeType: aws.String("S"),
+			},
+			{
+				AttributeName: aws.String("id"),
+				AttributeType: aws.String("S"),
+			},
+		},
+		KeySchema: []*dynamodb.KeySchemaElement{
+			{
+				AttributeName: aws.String("type"),
+				KeyType:       aws.String("HASH"),
+			},
+			{
+				AttributeName: aws.String("id"),
+				KeyType:       aws.String("RANGE"),
+			},
+		},
+		ProvisionedThroughput: &dynamodb.ProvisionedThroughput{
+			ReadCapacityUnits:  aws.Int64(5),
+			WriteCapacityUnits: aws.Int64(5),
+		},
+		TableName: aws.String(TABLE_NAME),
 	}
-	return
-}
-
-func BuildDynamoDBTable() {
-	// Create a session to share configuration, and load external configuration.
-	sess := session.Must(session.NewSession())
-
-	// Create the service's client with the session.
-	svc := dynamodb.New(sess)
-
-	input := &dynamodb.ListTablesInput{}
-
-	result, err := svc.ListTables(input)
-
+	fmt.Printf("Creating DynamoDB table '%s'...\n", TABLE_NAME)
+	result, err := svc.CreateTable(input)
 	if err != nil {
 		if aerr, ok := err.(awserr.Error); ok {
 			switch aerr.Code() {
+			case dynamodb.ErrCodeResourceInUseException:
+				fmt.Println(dynamodb.ErrCodeResourceInUseException, aerr.Error())
+			case dynamodb.ErrCodeLimitExceededException:
+				fmt.Println(dynamodb.ErrCodeLimitExceededException, aerr.Error())
 			case dynamodb.ErrCodeInternalServerError:
 				fmt.Println(dynamodb.ErrCodeInternalServerError, aerr.Error())
 			default:
@@ -56,72 +72,45 @@ func BuildDynamoDBTable() {
 			// Message from an error.
 			fmt.Println(err.Error())
 		}
-		return
+		return false
 	}
 
 	fmt.Println(result)
+	return true
 }
 
-func DataStuffWithGenericMap() {
-	urlToName := make(map[string]string)
-	people, err := GetList("https://swapi.co/api/people/")
-	if err != nil {
-		fmt.Printf("some error occured")
+func tableExists(svc *dynamodb.DynamoDB) (exists bool) {
+	input := &dynamodb.DescribeTableInput{
+		TableName: aws.String(TABLE_NAME),
 	}
-	for _, person := range people {
-		urlToName[person["url"].(string)] = person["name"].(string)
+	if _, err := svc.DescribeTable(input); err != nil {
+		// Expecting ResourceNotFoundException.
+		// If another error encountered, lets record it.
+		expected := false
+		if aerr, ok := err.(awserr.Error); ok {
+			if aerr.Code() == dynamodb.ErrCodeResourceNotFoundException {
+				expected = true
+			}
+		}
+		if !expected {
+			fmt.Println(err.Error())
+		}
+		return false
 	}
-
-	films, err := GetList("https://swapi.co/api/films/")
-	if err != nil {
-		fmt.Printf("some error occured")
-	}
-	for _, film := range films {
-		urlToName[film["url"].(string)] = film["title"].(string)
-	}
-
-	starships, err := GetList("https://swapi.co/api/starships/")
-	if err != nil {
-		fmt.Printf("some error occured")
-	}
-	for _, starship := range starships {
-		urlToName[starship["url"].(string)] = starship["name"].(string)
-	}
-
-	species, err := GetList("https://swapi.co/api/species/")
-	if err != nil {
-		fmt.Printf("some error occured")
-	}
-	for _, sp := range species {
-		urlToName[sp["url"].(string)] = sp["name"].(string)
-	}
-
-	planets, err := GetList("https://swapi.co/api/planets/")
-	if err != nil {
-		fmt.Printf("some error occured")
-	}
-	for _, planet := range planets {
-		urlToName[planet["url"].(string)] = planet["name"].(string)
-	}
-
-
-	fmt.Printf("%+v\n", urlToName)
+	return true
 }
 
-func toId(url string) (int, error) {
+func urlToId(url string) string {
 	offset := 1
 	if strings.HasSuffix(url, "/") {
 		offset = 2
 	}
 	split := strings.Split(url, "/")
-	return strconv.Atoi(split[len(split)-offset])
+	return split[len(split)-offset]
 }
 
-func toKey(typ string, id int) string {
-	return strings.Join([]string{typ, ":", strconv.Itoa(id)}, "")
-}
-
-func DataStuff() {
+func extract(data *swapiData) {
+	fmt.Println("Extracting data from swapi.co...")
 	urlToName := make(map[string]string)
 	people, err := GetPeople()
 	if err != nil {
@@ -163,12 +152,10 @@ func DataStuff() {
 		urlToName[planet.URL] = planet.Name
 	}
 
-	// TODO URL to Id...somehow
 	for i, _ := range people {
 		person := &people[i]
-		person.Id, err = toId(person.URL) // TODO error
+		person.Id = urlToId(person.URL)
 		person.Type = "people"
-		person.Key = toKey(person.Type, person.Id)
 		person.Homeworld = urlToName[person.Homeworld]
 		for i, film := range person.Films {
 			person.Films[i] = urlToName[film]
@@ -183,6 +170,8 @@ func DataStuff() {
 
 	for i, _ := range starships {
 		starship := &starships[i]
+		starship.Id = urlToId(starship.URL)
+		starship.Type = "starship"
 		for i, film := range starship.Films {
 			starship.Films[i] = urlToName[film]
 		}
@@ -193,6 +182,8 @@ func DataStuff() {
 
 	for i, _ := range planets {
 		planet := &planets[i]
+		planet.Id = urlToId(planet.URL)
+		planet.Type = "planet"
 		for i, film := range planet.Films {
 			planet.Films[i] = urlToName[film]
 		}
@@ -201,110 +192,170 @@ func DataStuff() {
 		}
 	}
 
-	data := struct {
-		People    []Person   `json:"people"`
-		Starships []Starship `json:"starships"`
-		Planets   []Planet   `json:"planets"`
-	}{
-		people,
-		starships,
-		planets,
-	}
-
-	//fmt.Printf("%+v\n", data)
-	jsonData, _ := json.Marshal(&data)
-	fmt.Println(string(jsonData))
-
-	//WriteBatchToDynamoDB(people)// TODO https://golang.org/doc/faq#convert_slice_of_interface
+	data.People = people
+	data.Starships = starships
+	data.Planets = planets
 }
 
-func WriteBatchToDynamoDB(list []interface{}) {
-	itemList := make([]map[string]*dynamodb.AttributeValue, len(list), len(list))
-	for i, one := range list {
-		var item map[string]*dynamodb.AttributeValue
-		var err error
-		if item, err = dynamodbattribute.MarshalMap(one); err != nil {
-			//error
-		}
-		itemList[i] = item
+func createPutRequest(in interface{}) *dynamodb.PutRequest {
+	item, err := dynamodbattribute.MarshalMap(in)
+	if err != nil {
+		panic(err)
 	}
-	fmt.Printf("%+v\n", itemList)
-	//sess := session.Must(session.NewSession())
-	//svc := dynamodb.New(sess)
-	//input := &dynamodb.BatchWriteItemInput{
-	//	RequestItems: map[string][]*dynamodb.WriteRequest{
-	//		"Music": {
-	//			{
-	//				PutRequest: &dynamodb.PutRequest{
-	//					Item: map[string]*dynamodb.AttributeValue{
-	//						"AlbumTitle": {
-	//							S: aws.String("Somewhat Famous"),
-	//						},
-	//						"Artist": {
-	//							S: aws.String("No One You Know"),
-	//						},
-	//						"SongTitle": {
-	//							S: aws.String("Call Me Today"),
-	//						},
-	//					},
-	//				},
-	//			},
-	//			{
-	//				PutRequest: &dynamodb.PutRequest{
-	//					Item: map[string]*dynamodb.AttributeValue{
-	//						"AlbumTitle": {
-	//							S: aws.String("Songs About Life"),
-	//						},
-	//						"Artist": {
-	//							S: aws.String("Acme Band"),
-	//						},
-	//						"SongTitle": {
-	//							S: aws.String("Happy Day"),
-	//						},
-	//					},
-	//				},
-	//			},
-	//			{
-	//				PutRequest: &dynamodb.PutRequest{
-	//					Item: map[string]*dynamodb.AttributeValue{
-	//						"AlbumTitle": {
-	//							S: aws.String("Blue Sky Blues"),
-	//						},
-	//						"Artist": {
-	//							S: aws.String("No One You Know"),
-	//						},
-	//						"SongTitle": {
-	//							S: aws.String("Scared of My Shadow"),
-	//						},
-	//					},
-	//				},
-	//			},
-	//		},
-	//	},
-	//}
-	//
-	//result, err := svc.BatchWriteItem(input)
-	//if err != nil {
-	//	if aerr, ok := err.(awserr.Error); ok {
-	//		switch aerr.Code() {
-	//		case dynamodb.ErrCodeProvisionedThroughputExceededException:
-	//			fmt.Println(dynamodb.ErrCodeProvisionedThroughputExceededException, aerr.Error())
-	//		case dynamodb.ErrCodeResourceNotFoundException:
-	//			fmt.Println(dynamodb.ErrCodeResourceNotFoundException, aerr.Error())
-	//		case dynamodb.ErrCodeItemCollectionSizeLimitExceededException:
-	//			fmt.Println(dynamodb.ErrCodeItemCollectionSizeLimitExceededException, aerr.Error())
-	//		case dynamodb.ErrCodeInternalServerError:
-	//			fmt.Println(dynamodb.ErrCodeInternalServerError, aerr.Error())
-	//		default:
-	//			fmt.Println(aerr.Error())
-	//		}
-	//	} else {
-	//		// Print the error, cast err to awserr.Error to get the Code and
-	//		// Message from an error.
-	//		fmt.Println(err.Error())
-	//	}
-	//	return
-	//}
-	//
-	//fmt.Println(result)
+	return &dynamodb.PutRequest{Item: item}
+}
+
+func transform(data *swapiData) []*dynamodb.WriteRequest {
+	itemCount := len(data.People) + len(data.Starships) + len(data.Planets)
+	ret := make([]*dynamodb.WriteRequest, 0, itemCount)
+
+	for i, _ := range data.People {
+		ret = append(ret, &dynamodb.WriteRequest{PutRequest: createPutRequest(&data.People[i])})
+	}
+
+	for i, _ := range data.Starships {
+		ret = append(ret, &dynamodb.WriteRequest{PutRequest: createPutRequest(&data.Starships[i])})
+	}
+
+	for i, _ := range data.Planets {
+		ret = append(ret, &dynamodb.WriteRequest{PutRequest: createPutRequest(&data.Planets[i])})
+	}
+
+	return ret
+}
+
+func writeBatch(svc *dynamodb.DynamoDB, batch []*dynamodb.WriteRequest) {
+	var items = make(map[string][]*dynamodb.WriteRequest)
+	items[TABLE_NAME] = batch
+	input := &dynamodb.BatchWriteItemInput{RequestItems: items}
+
+	result, err := svc.BatchWriteItem(input)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			switch aerr.Code() {
+			case dynamodb.ErrCodeProvisionedThroughputExceededException:
+				fmt.Println(dynamodb.ErrCodeProvisionedThroughputExceededException, aerr.Error())
+			case dynamodb.ErrCodeResourceNotFoundException:
+				fmt.Println(dynamodb.ErrCodeResourceNotFoundException, aerr.Error())
+			case dynamodb.ErrCodeItemCollectionSizeLimitExceededException:
+				fmt.Println(dynamodb.ErrCodeItemCollectionSizeLimitExceededException, aerr.Error())
+			case dynamodb.ErrCodeInternalServerError:
+				fmt.Println(dynamodb.ErrCodeInternalServerError, aerr.Error())
+			default:
+				fmt.Println(aerr.Error())
+			}
+		} else {
+			// Print the error, cast err to awserr.Error to get the Code and
+			// Message from an error.
+			fmt.Println(err.Error())
+		}
+		return
+	}
+
+	fmt.Println(result)
+}
+
+func load(svc *dynamodb.DynamoDB, all []*dynamodb.WriteRequest) {
+	fmt.Printf("Loading %d items into DynamoDB table '%s'...\n", len(all), TABLE_NAME)
+
+	// limit of 25 requests per batch
+	batchSize := 25
+	numOfBatches := int(len(all)/batchSize) + 1
+	fmt.Printf("Number of batches = %d\n", numOfBatches)
+	l, c := 0, batchSize
+	for i := 0; i < numOfBatches; i++ {
+		fmt.Printf("Writing %d - %d\n", l + 1, c)
+		writeBatch(svc, all[l:c])
+		l += batchSize
+		c += batchSize
+		if c > len(all) {
+			c = len(all)
+		}
+	}
+}
+
+func BuildStarWarsDB() {
+	// Create a session to share configuration, and load external configuration.
+	sess := session.Must(session.NewSession())
+
+	// Create the service's client with the session.
+	svc := dynamodb.New(sess)
+
+	// Create table if it doesn't exist
+	if !tableExists(svc) && !createTable(svc) {
+		fmt.Printf("Table '%s' could not be created", TABLE_NAME)
+		return
+	}
+
+	swapiData := &swapiData{}
+	extract(swapiData)
+	awsData := transform(swapiData)
+	load(svc, awsData)
+}
+
+//
+// Some experimenting below with generic results structure
+//
+type pagedResponse struct {
+	Count    int                      `json:"count"`
+	Next     string                   `json:"next"`
+	Previous string                   `json:"previous"`
+	Results  []map[string]interface{} `json:"results"`
+}
+
+func getList(url string) (list []map[string]interface{}, err error) {
+	for url != "" {
+		var res pagedResponse
+		if err = swapi.Get(url, &res); err != nil {
+			return
+		}
+		url = res.Next
+		list = append(list, res.Results...)
+	}
+	return
+}
+
+func extractToGenericMap() {
+	urlToName := make(map[string]string)
+	people, err := getList("https://swapi.co/api/people/")
+	if err != nil {
+		fmt.Printf("some error occured")
+	}
+	for _, person := range people {
+		urlToName[person["url"].(string)] = person["name"].(string)
+	}
+
+	films, err := getList("https://swapi.co/api/films/")
+	if err != nil {
+		fmt.Printf("some error occured")
+	}
+	for _, film := range films {
+		urlToName[film["url"].(string)] = film["title"].(string)
+	}
+
+	starships, err := getList("https://swapi.co/api/starships/")
+	if err != nil {
+		fmt.Printf("some error occured")
+	}
+	for _, starship := range starships {
+		urlToName[starship["url"].(string)] = starship["name"].(string)
+	}
+
+	species, err := getList("https://swapi.co/api/species/")
+	if err != nil {
+		fmt.Printf("some error occured")
+	}
+	for _, sp := range species {
+		urlToName[sp["url"].(string)] = sp["name"].(string)
+	}
+
+	planets, err := getList("https://swapi.co/api/planets/")
+	if err != nil {
+		fmt.Printf("some error occured")
+	}
+	for _, planet := range planets {
+		urlToName[planet["url"].(string)] = planet["name"].(string)
+	}
+
+	fmt.Printf("%+v\n", urlToName)
 }

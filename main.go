@@ -7,6 +7,5 @@ import (
 
 func main() {
 	//server.Start(8080);
-	etl.DataStuffWithGenericMap()
-	//etl.DataStuff()
+	etl.BuildStarWarsDB()
 }
