@@ -1,15 +1,10 @@
-package etl
+package storage
 
 import (
 	"github.com/leejarvis/swapi"
 )
 
-type Species struct {
-	DynamoDBKey
-	swapi.Species
-}
-
-type SpeciesResponse struct {
+type speciesResponse struct {
 	Count    int       `json:"count"`
 	Next     string    `json:"next"`
 	Previous string    `json:"previous"`
@@ -19,7 +14,7 @@ type SpeciesResponse struct {
 func GetSpecies() (species []Species, err error) {
 	url := "https://swapi.co/api/species/"
 	for url != "" {
-		var res SpeciesResponse
+		var res speciesResponse
 		if err = swapi.Get(url, &res); err != nil {
 			return
 		}

@@ -1,11 +1,17 @@
 package main
 
 import (
-	//"github.com/bryan-laipple/star-wars-server/server"
-	"github.com/bryan-laipple/star-wars-server/etl"
+	"os"
+
+	"github.com/bryan-laipple/star-wars-server/server"
 )
 
+const defaultPort = "8080"
+
 func main() {
-	//server.Start(8080);
-	etl.BuildStarWarsDB()
+	port := os.Getenv("HTTP_PORT")
+	if port == "" {
+		port = defaultPort
+	}
+	server.Start(port)
 }

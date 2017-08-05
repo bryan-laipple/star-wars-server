@@ -9,18 +9,14 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+	"github.com/bryan-laipple/star-wars-server/storage"
 	"github.com/leejarvis/swapi"
 )
 
-type DynamoDBKey struct {
-	Type string `json:"type"`
-	Id   string `json:"id"`
-}
-
 type swapiData struct {
-	People    []Person   `json:"people"`
-	Starships []Starship `json:"starships"`
-	Planets   []Planet   `json:"planets"`
+	Characters []storage.Character `json:"characters"`
+	Starships  []storage.Starship  `json:"starships"`
+	Planets    []storage.Planet    `json:"planets"`
 }
 
 const TABLE_NAME = "StarWars"
@@ -112,15 +108,15 @@ func urlToId(url string) string {
 func extract(data *swapiData) {
 	fmt.Println("Extracting data from swapi.co...")
 	urlToName := make(map[string]string)
-	people, err := GetPeople()
+	characters, err := storage.GetCharacters()
 	if err != nil {
 		fmt.Printf("some error occured")
 	}
-	for _, person := range people {
-		urlToName[person.URL] = person.Name
+	for _, character := range characters {
+		urlToName[character.URL] = character.Name
 	}
 
-	films, err := GetFilms()
+	films, err := storage.GetFilms()
 	if err != nil {
 		fmt.Printf("some error occured")
 	}
@@ -128,7 +124,7 @@ func extract(data *swapiData) {
 		urlToName[film.URL] = film.Title
 	}
 
-	starships, err := GetStarships()
+	starships, err := storage.GetStarships()
 	if err != nil {
 		fmt.Printf("some error occured")
 	}
@@ -136,7 +132,7 @@ func extract(data *swapiData) {
 		urlToName[starship.URL] = starship.Name
 	}
 
-	species, err := GetSpecies()
+	species, err := storage.GetSpecies()
 	if err != nil {
 		fmt.Printf("some error occured")
 	}
@@ -144,7 +140,7 @@ func extract(data *swapiData) {
 		urlToName[sp.URL] = sp.Name
 	}
 
-	planets, err := GetPlanets()
+	planets, err := storage.GetPlanets()
 	if err != nil {
 		fmt.Printf("some error occured")
 	}
@@ -152,10 +148,10 @@ func extract(data *swapiData) {
 		urlToName[planet.URL] = planet.Name
 	}
 
-	for i, _ := range people {
-		person := &people[i]
+	for i, _ := range characters {
+		person := &characters[i]
 		person.Id = urlToId(person.URL)
-		person.Type = "people"
+		person.Type = "character"
 		person.Homeworld = urlToName[person.Homeworld]
 		for i, film := range person.Films {
 			person.Films[i] = urlToName[film]
@@ -192,7 +188,7 @@ func extract(data *swapiData) {
 		}
 	}
 
-	data.People = people
+	data.Characters = characters
 	data.Starships = starships
 	data.Planets = planets
 }
@@ -206,11 +202,11 @@ func createPutRequest(in interface{}) *dynamodb.PutRequest {
 }
 
 func transform(data *swapiData) []*dynamodb.WriteRequest {
-	itemCount := len(data.People) + len(data.Starships) + len(data.Planets)
+	itemCount := len(data.Characters) + len(data.Starships) + len(data.Planets)
 	ret := make([]*dynamodb.WriteRequest, 0, itemCount)
 
-	for i, _ := range data.People {
-		ret = append(ret, &dynamodb.WriteRequest{PutRequest: createPutRequest(&data.People[i])})
+	for i, _ := range data.Characters {
+		ret = append(ret, &dynamodb.WriteRequest{PutRequest: createPutRequest(&data.Characters[i])})
 	}
 
 	for i, _ := range data.Starships {
@@ -264,7 +260,7 @@ func load(svc *dynamodb.DynamoDB, all []*dynamodb.WriteRequest) {
 	fmt.Printf("Number of batches = %d\n", numOfBatches)
 	l, c := 0, batchSize
 	for i := 0; i < numOfBatches; i++ {
-		fmt.Printf("Writing %d - %d\n", l + 1, c)
+		fmt.Printf("Writing %d - %d\n", l+1, c)
 		writeBatch(svc, all[l:c])
 		l += batchSize
 		c += batchSize
@@ -317,12 +313,12 @@ func getList(url string) (list []map[string]interface{}, err error) {
 
 func extractToGenericMap() {
 	urlToName := make(map[string]string)
-	people, err := getList("https://swapi.co/api/people/")
+	characters, err := getList("https://swapi.co/api/people/")
 	if err != nil {
 		fmt.Printf("some error occured")
 	}
-	for _, person := range people {
-		urlToName[person["url"].(string)] = person["name"].(string)
+	for _, character := range characters {
+		urlToName[character["url"].(string)] = character["name"].(string)
 	}
 
 	films, err := getList("https://swapi.co/api/films/")
