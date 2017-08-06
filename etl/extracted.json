@@ -358,7 +358,7 @@
       "edited": "2014-12-20T21:17:50.321000Z",
       "url": "https://swapi.co/api/people/8/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/c/cb/R5-D4_Sideshow.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -1927,7 +1927,7 @@
       "edited": "2014-12-20T21:17:50.388000Z",
       "url": "https://swapi.co/api/people/38/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/d/d8/Bossnass.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -1962,7 +1962,7 @@
       "edited": "2014-12-20T21:17:50.392000Z",
       "url": "https://swapi.co/api/people/39/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/4/4c/RicOlieHS-SWE.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2000,7 +2000,7 @@
       "edited": "2014-12-20T21:17:50.395000Z",
       "url": "https://swapi.co/api/people/40/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/e/eb/WattoHS.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2008,7 +2008,6 @@
         }
       ],
       "images": [
-        "https://vignette2.wikia.nocookie.net/starwars/images/d/d3/Char-stub.png",
         "https://vignette1.wikia.nocookie.net/starwars/images/e/eb/WattoHS.jpg"
       ]
     },
@@ -2036,7 +2035,7 @@
       "edited": "2014-12-20T21:17:50.397000Z",
       "url": "https://swapi.co/api/people/41/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/1/14/Sebulba_Headshot_Closeup.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2074,7 +2073,7 @@
       "edited": "2014-12-20T21:17:50.399000Z",
       "url": "https://swapi.co/api/people/42/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/7/72/PanakaHS-TPM.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2119,7 +2118,7 @@
       "edited": "2014-12-20T21:17:50.401000Z",
       "url": "https://swapi.co/api/people/43/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/e/e0/ShmiHS-SWE.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2160,7 +2159,7 @@
       "edited": "2014-12-20T21:17:50.403000Z",
       "url": "https://swapi.co/api/people/44/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/5/50/Darth_Maul_profile.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2226,7 +2225,7 @@
       "edited": "2014-12-20T21:17:50.407000Z",
       "url": "https://swapi.co/api/people/45/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/3/33/BibFortunaHS-ROTJ.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2241,7 +2240,7 @@
     {
       "type": "character",
       "id": "46",
-      "name": "Ayla Secura",
+      "name": "Aayla Secura",
       "height": "178",
       "mass": "55",
       "hair_color": "none",
@@ -2264,14 +2263,16 @@
       "edited": "2014-12-20T21:17:50.409000Z",
       "url": "https://swapi.co/api/people/46/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/4/4d/Aayla_Secura_SWE.png",
       "links": [
         {
           "rel": "wookieepedia",
-          "href": "http://starwars.wikia.com/wiki/Ayla_Secura"
+          "href": "http://starwars.wikia.com/wiki/Aayla_Secura"
         }
       ],
-      "images": []
+      "images": [
+        "https://vignette2.wikia.nocookie.net/starwars/images/4/4d/Aayla_Secura_SWE.png"
+      ]
     },
     {
       "type": "character",
@@ -2297,7 +2298,7 @@
       "edited": "2014-12-20T21:17:50.414000Z",
       "url": "https://swapi.co/api/people/48/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/7/73/Dud_Bolt_Podracer_Cockpit.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2334,7 +2335,7 @@
       "edited": "2014-12-20T21:17:50.416000Z",
       "url": "https://swapi.co/api/people/49/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/5/57/GasganoHS-SWE.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2369,7 +2370,7 @@
       "edited": "2014-12-20T21:17:50.417000Z",
       "url": "https://swapi.co/api/people/50/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/7/7f/Cropped_Quadinaros.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2407,7 +2408,7 @@
       "edited": "2014-12-20T21:17:50.420000Z",
       "url": "https://swapi.co/api/people/51/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/4/45/Mace_Windu_Jedi_Council_TPM.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2471,7 +2472,7 @@
       "edited": "2014-12-20T21:17:50.422000Z",
       "url": "https://swapi.co/api/people/52/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/9/9e/KiAdiMundi.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2524,7 +2525,7 @@
       "edited": "2014-12-20T21:17:50.424000Z",
       "url": "https://swapi.co/api/people/53/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/8/81/Kitfisto_detail.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2576,7 +2577,7 @@
       "edited": "2014-12-20T21:17:50.427000Z",
       "url": "https://swapi.co/api/people/54/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/f/f4/EethKoth-SWE.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2614,7 +2615,7 @@
       "edited": "2014-12-20T21:17:50.432000Z",
       "url": "https://swapi.co/api/people/55/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/b/ba/AdiGallia.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2653,7 +2654,7 @@
       "edited": "2014-12-20T21:17:50.434000Z",
       "url": "https://swapi.co/api/people/56/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/f/f4/SaeseeTiinFull-SWE.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2690,7 +2691,7 @@
       "edited": "2014-12-20T21:17:50.437000Z",
       "url": "https://swapi.co/api/people/57/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/6/66/Yarael_Poof_Canon.jpeg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2731,7 +2732,7 @@
       "edited": "2014-12-20T21:17:50.439000Z",
       "url": "https://swapi.co/api/people/58/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/f/fd/Plokoon_detail.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2784,7 +2785,7 @@
       "edited": "2014-12-20T21:17:50.442000Z",
       "url": "https://swapi.co/api/people/59/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/3/37/Mas_Amedda_SWCT.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2834,7 +2835,7 @@
       "edited": "2014-12-20T21:17:50.445000Z",
       "url": "https://swapi.co/api/people/60/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/5/52/Gregar_Typho.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2842,7 +2843,6 @@
         }
       ],
       "images": [
-        "https://vignette2.wikia.nocookie.net/starwars/images/d/d3/Char-stub.png",
         "https://vignette1.wikia.nocookie.net/starwars/images/5/52/Gregar_Typho.jpg"
       ]
     },
@@ -2870,7 +2870,7 @@
       "edited": "2014-12-20T21:17:50.449000Z",
       "url": "https://swapi.co/api/people/61/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/b/b6/Cord%C3%A9_-_SW_Card_Trader.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2906,7 +2906,7 @@
       "edited": "2014-12-20T21:17:50.451000Z",
       "url": "https://swapi.co/api/people/62/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/3/36/ClieggLarsHS-SWE.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2942,7 +2942,7 @@
       "edited": "2014-12-20T21:17:50.453000Z",
       "url": "https://swapi.co/api/people/63/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/9/93/Poggle_the_lesser_-_sw_card_trader.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -2980,7 +2980,7 @@
       "edited": "2014-12-20T21:17:50.455000Z",
       "url": "https://swapi.co/api/people/64/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/e/ef/LuminaraHS-SWE.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3020,7 +3020,7 @@
       "edited": "2014-12-20T21:17:50.457000Z",
       "url": "https://swapi.co/api/people/65/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/3/37/Barrisprofile2.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3060,7 +3060,7 @@
       "edited": "2014-12-20T21:17:50.460000Z",
       "url": "https://swapi.co/api/people/66/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/1/18/Dormesenate.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3068,7 +3068,6 @@
         }
       ],
       "images": [
-        "https://vignette2.wikia.nocookie.net/starwars/images/d/d3/Char-stub.png",
         "https://vignette2.wikia.nocookie.net/starwars/images/1/18/Dormesenate.jpg"
       ]
     },
@@ -3099,7 +3098,7 @@
       "edited": "2014-12-20T21:17:50.462000Z",
       "url": "https://swapi.co/api/people/67/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/f/f1/Count_Dooku_headshot_gaze.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3160,7 +3159,7 @@
       "edited": "2014-12-20T21:17:50.463000Z",
       "url": "https://swapi.co/api/people/68/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/5/50/Bail_Organa_Mug.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3210,7 +3209,7 @@
       "edited": "2014-12-20T21:17:50.465000Z",
       "url": "https://swapi.co/api/people/69/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/0/07/Jango-CHRON.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3252,7 +3251,7 @@
       "edited": "2014-12-20T21:17:50.468000Z",
       "url": "https://swapi.co/api/people/70/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/7/7d/Clawdite.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3260,7 +3259,6 @@
         }
       ],
       "images": [
-        "https://vignette2.wikia.nocookie.net/starwars/images/d/d3/Char-stub.png",
         "https://vignette3.wikia.nocookie.net/starwars/images/7/7d/Clawdite.jpg"
       ]
     },
@@ -3288,7 +3286,7 @@
       "edited": "2014-12-20T21:17:50.470000Z",
       "url": "https://swapi.co/api/people/71/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/6/6c/DexterHS-SWE.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3296,7 +3294,6 @@
         }
       ],
       "images": [
-        "https://vignette2.wikia.nocookie.net/starwars/images/d/d3/Char-stub.png",
         "https://vignette3.wikia.nocookie.net/starwars/images/6/6c/DexterHS-SWE.jpg"
       ]
     },
@@ -3324,7 +3321,7 @@
       "edited": "2014-12-20T21:17:50.473000Z",
       "url": "https://swapi.co/api/people/72/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/7/73/Lama_Su.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3359,7 +3356,7 @@
       "edited": "2014-12-20T21:17:50.474000Z",
       "url": "https://swapi.co/api/people/73/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/9/9c/TaunWe.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3394,7 +3391,7 @@
       "edited": "2014-12-20T21:17:50.476000Z",
       "url": "https://swapi.co/api/people/74/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/1/15/Jocasta_Nu_SWE.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3431,7 +3428,7 @@
       "edited": "2016-06-30T12:52:19.604868Z",
       "url": "https://swapi.co/api/people/47/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/6/68/RattsHS.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3466,7 +3463,7 @@
       "edited": "2014-12-20T21:17:50.478000Z",
       "url": "https://swapi.co/api/people/75/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/6/6b/R4-P17.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3502,7 +3499,7 @@
       "edited": "2014-12-20T21:17:50.481000Z",
       "url": "https://swapi.co/api/people/76/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/a/a5/Wat_Tambor.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3543,7 +3540,7 @@
       "edited": "2014-12-20T21:17:50.484000Z",
       "url": "https://swapi.co/api/people/77/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/3/3f/San.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3579,7 +3576,7 @@
       "edited": "2014-12-20T21:17:50.486000Z",
       "url": "https://swapi.co/api/people/78/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/f/f2/Shaak_Ti_closeup.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3625,7 +3622,7 @@
       "edited": "2014-12-20T21:17:50.488000Z",
       "url": "https://swapi.co/api/people/79/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/e/ef/Grievous_SWCEUE.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3678,7 +3675,7 @@
       "edited": "2014-12-20T21:17:50.491000Z",
       "url": "https://swapi.co/api/people/80/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/3/37/Tarfful_RotS.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3714,7 +3711,7 @@
       "edited": "2014-12-20T21:17:50.493000Z",
       "url": "https://swapi.co/api/people/81/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/8/80/Raymus_card_trader.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3751,7 +3748,7 @@
       "edited": "2014-12-20T21:17:50.496000Z",
       "url": "https://swapi.co/api/people/82/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/e/ec/SlyMooreIsWatchingYouPoop-OfficialPix.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3788,7 +3785,7 @@
       "edited": "2014-12-20T21:17:50.498000Z",
       "url": "https://swapi.co/api/people/83/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/4/43/Tion_Medon.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3824,7 +3821,7 @@
       "edited": "2015-04-17T06:52:40.793674Z",
       "url": "https://swapi.co/api/people/84/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/3/38/FinnHS-Fathead.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3869,7 +3866,7 @@
       "edited": "2015-04-17T06:54:01.495128Z",
       "url": "https://swapi.co/api/people/85/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/c/c8/Rey_The_Last_Jedi_promo.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3928,7 +3925,7 @@
       "edited": "2015-04-17T06:55:21.622835Z",
       "url": "https://swapi.co/api/people/86/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/e/e8/PoeDameronHS-Fathead.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -3970,7 +3967,7 @@
       "edited": "2015-04-17T06:57:38.061453Z",
       "url": "https://swapi.co/api/people/87/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/6/68/BB8-Fathead.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -4009,7 +4006,7 @@
       "edited": "2015-10-13T10:35:39.229894Z",
       "url": "https://swapi.co/api/people/88/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/e/e7/PhasmaHS-Fathead.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -4059,7 +4056,7 @@
       "edited": "2016-04-20T17:06:31.502555Z",
       "url": "https://swapi.co/api/people/35/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/b/b2/Padmegreenscrshot.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -5069,7 +5066,7 @@
       "edited": "2015-04-17T06:58:50.614528Z",
       "url": "https://swapi.co/api/starships/77/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/f/f5/T70XWing-Fathead.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -5521,11 +5518,11 @@
       "edited": "2017-04-19T10:53:32.700283Z",
       "url": "https://swapi.co/api/starships/68/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/f/f8/Muunshuttle.jpg",
       "links": [
         {
           "rel": "wookieepedia",
-          "href": "http://starwars.wikia.com/wiki/Banking_clan_frigate"
+          "href": "http://starwars.wikia.com/wiki/Banking_Clan_shuttle"
         }
       ],
       "images": []
@@ -6212,7 +6209,7 @@
       "edited": "2014-12-20T20:58:18.452000Z",
       "url": "https://swapi.co/api/planets/20/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "https://vignette4.wikia.nocookie.net/starwars/images/b/b2/Padmegreenscrshot.jpg",
+      "image": "",
       "links": [
         {
           "rel": "wookieepedia",
@@ -6779,14 +6776,16 @@
       "edited": "2014-12-20T20:58:18.485000Z",
       "url": "https://swapi.co/api/planets/39/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette3.wikia.nocookie.net/starwars/images/b/be/Vulpter_FF7.jpg",
       "links": [
         {
           "rel": "wookieepedia",
           "href": "http://starwars.wikia.com/wiki/Vulpter"
         }
       ],
-      "images": []
+      "images": [
+        "https://vignette3.wikia.nocookie.net/starwars/images/b/be/Vulpter_FF7.jpg"
+      ]
     },
     {
       "type": "planet",
@@ -7175,7 +7174,7 @@
       "edited": "2014-12-20T20:58:18.510000Z",
       "url": "https://swapi.co/api/planets/52/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/b/b2/Serenno-Massacre.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -7208,7 +7207,7 @@
       "edited": "2014-12-20T20:58:18.512000Z",
       "url": "https://swapi.co/api/planets/53/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/8/84/Concord_Dawn_system.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -7239,14 +7238,16 @@
       "edited": "2014-12-20T20:58:18.514000Z",
       "url": "https://swapi.co/api/planets/54/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/6/66/Zolan.jpg",
       "links": [
         {
           "rel": "wookieepedia",
           "href": "http://starwars.wikia.com/wiki/Zolan"
         }
       ],
-      "images": []
+      "images": [
+        "https://vignette1.wikia.nocookie.net/starwars/images/6/66/Zolan.jpg"
+      ]
     },
     {
       "type": "planet",
@@ -7268,14 +7269,16 @@
       "edited": "2014-12-20T20:58:18.516000Z",
       "url": "https://swapi.co/api/planets/55/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/9/9f/Ojom.jpg",
       "links": [
         {
           "rel": "wookieepedia",
           "href": "http://starwars.wikia.com/wiki/Ojom"
         }
       ],
-      "images": []
+      "images": [
+        "https://vignette2.wikia.nocookie.net/starwars/images/9/9f/Ojom.jpg"
+      ]
     },
     {
       "type": "planet",
@@ -7297,7 +7300,7 @@
       "edited": "2014-12-20T20:58:18.517000Z",
       "url": "https://swapi.co/api/planets/56/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/c/c2/Skako_FFG.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -7328,7 +7331,7 @@
       "edited": "2014-12-20T20:58:18.519000Z",
       "url": "https://swapi.co/api/planets/57/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette4.wikia.nocookie.net/starwars/images/4/49/JaemusMuunilinstEntralla_ROarticle.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -7359,7 +7362,7 @@
       "edited": "2014-12-20T20:58:18.521000Z",
       "url": "https://swapi.co/api/planets/58/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/0/04/Shili_and_balnab_-_sw_galactic_atlas.png",
       "links": [
         {
           "rel": "wookieepedia",
@@ -7390,7 +7393,7 @@
       "edited": "2014-12-20T20:58:18.523000Z",
       "url": "https://swapi.co/api/planets/59/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/0/08/KaleePlanet.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -7421,7 +7424,7 @@
       "edited": "2014-12-20T20:58:18.525000Z",
       "url": "https://swapi.co/api/planets/60/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette1.wikia.nocookie.net/starwars/images/9/9f/UmbaraSystem-DoU.jpg",
       "links": [
         {
           "rel": "wookieepedia",
@@ -7501,7 +7504,7 @@
       "edited": "2015-04-17T06:55:57.556551Z",
       "url": "https://swapi.co/api/planets/61/",
       "avatar": "/assets/Wiki-shrinkable.png",
-      "image": "",
+      "image": "https://vignette2.wikia.nocookie.net/starwars/images/f/f4/Jakku_-_full_-_SW_Poe_Dameron_Flight_Log_.png",
       "links": [
         {
           "rel": "wookieepedia",
