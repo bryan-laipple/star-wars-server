@@ -3,6 +3,9 @@ package storage
 import (
 	"fmt"
 
+	"sync"
+	"time"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
@@ -19,10 +22,13 @@ type StarWarsDBClient interface {
 }
 
 type dynamoDBClient struct {
-	client         *dynamodb.DynamoDB
-	characterCache []Character
-	starshipCache  []Starship
-	planetCache    []Planet
+	client              *dynamodb.DynamoDB
+	characterCache      []Character
+	starshipCache       []Starship
+	planetCache         []Planet
+	characterCacheMutex sync.Mutex
+	starshipCacheMutex  sync.Mutex
+	plantCachMutex      sync.Mutex
 }
 
 func NewStarWarsDBClient() StarWarsDBClient {
@@ -30,28 +36,35 @@ func NewStarWarsDBClient() StarWarsDBClient {
 	svc := dynamodb.New(sess)
 	db := &dynamoDBClient{}
 	db.client = svc
+	go db.ttl()
 	return db
 }
 
 func (db *dynamoDBClient) GetCharacters() []Character {
-	if db.characterCache == nil {
-		db.characterCache = scanCharacters(db.client)
+	ret := db.characterCache
+	if ret == nil {
+		ret = scanCharacters(db.client)
+		db.setCharacterCache(ret)
 	}
-	return db.characterCache
+	return ret
 }
 
 func (db *dynamoDBClient) GetStarships() []Starship {
-	if db.starshipCache == nil {
-		db.starshipCache = scanStarships(db.client)
+	ret := db.starshipCache
+	if ret == nil {
+		ret = scanStarships(db.client)
+		db.setStarshipCache(ret)
 	}
-	return db.starshipCache
+	return ret
 }
 
 func (db *dynamoDBClient) GetPlanets() []Planet {
-	if db.planetCache == nil {
-		db.planetCache = scanPlanets(db.client)
+	ret := db.planetCache
+	if ret == nil {
+		ret = scanPlanets(db.client)
+		db.setPlanetCache(ret)
 	}
-	return db.planetCache
+	return ret
 }
 
 func (db *dynamoDBClient) GetCharacter(id string) (Character, bool) {
@@ -82,6 +95,36 @@ func (db *dynamoDBClient) GetPlanet(id string) (Planet, bool) {
 		}
 	}
 	return Planet{}, false
+}
+
+func (db *dynamoDBClient) setCharacterCache(data []Character) {
+	db.characterCacheMutex.Lock()
+	db.characterCache = data
+	db.characterCacheMutex.Unlock()
+}
+
+func (db *dynamoDBClient) setStarshipCache(data []Starship) {
+	db.starshipCacheMutex.Lock()
+	db.starshipCache = data
+	db.starshipCacheMutex.Unlock()
+}
+
+func (db *dynamoDBClient) setPlanetCache(data []Planet) {
+	db.plantCachMutex.Lock()
+	db.planetCache = data
+	db.plantCachMutex.Unlock()
+}
+
+func (db *dynamoDBClient) ttl() {
+	for {
+		select {
+		case <-time.After(time.Minute):
+			// bust caches
+			db.setCharacterCache(nil)
+			db.setStarshipCache(nil)
+			db.setPlanetCache(nil)
+		}
+	}
 }
 
 func getScanInput(recordType string) *dynamodb.ScanInput {

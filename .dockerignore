@@ -17,3 +17,7 @@ deploy-to-aws-ecs.sh
 # etl package not needed for app in docker
 etl
 etl.go
+
+# messin' around files
+playground.go
+sandbox.go

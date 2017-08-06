@@ -18,6 +18,7 @@ func Start(port string) Server {
 	app := iris.Default()
 
 	corsOptions := cors.Options{
+		// allowing everyone for now
 		AllowedOrigins:   []string{"*"},
 		AllowCredentials: true,
 	}
@@ -27,6 +28,7 @@ func Start(port string) Server {
 	app.WrapRouter(corsWrapper)
 
 	app.Get("/", func(ctx context.Context) {
+		// can be used as health check
 		ctx.StatusCode(200)
 	})
 
