@@ -16,3 +16,4 @@ deploy-to-aws-ecs.sh
 
 # etl package not needed for app in docker
 etl
+etl.go

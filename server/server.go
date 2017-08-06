@@ -44,7 +44,7 @@ func Start(port string) Server {
 	})
 
 	app.Get("/api/planets", func(ctx context.Context) {
-		ctx.JSON(context.Map{"planets": swDbClient.GetStarships()})
+		ctx.JSON(context.Map{"planets": swDbClient.GetPlanets()})
 	})
 
 	app.Get("/api/planets/:id", func(ctx context.Context) {

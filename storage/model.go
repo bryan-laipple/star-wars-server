@@ -9,9 +9,18 @@ type dynamoDBKey struct {
 	Id   string `json:"id"`
 }
 
+type Link struct {
+	Rel  string `json:"rel"`
+	Href string `json:"href"`
+}
+
 type Character struct {
 	dynamoDBKey
 	swapi.Person
+	Avatar string   `json:"avatar"`
+	Image  string   `json:"image"`
+	Links  []Link   `json:"links"`
+	Images []string `json:"images"`
 }
 
 type Film struct {
@@ -22,6 +31,10 @@ type Film struct {
 type Planet struct {
 	dynamoDBKey
 	swapi.Planet
+	Avatar string   `json:"avatar"`
+	Image  string   `json:"image"`
+	Links  []Link   `json:"links"`
+	Images []string `json:"images"`
 }
 
 type Species struct {
@@ -32,4 +45,8 @@ type Species struct {
 type Starship struct {
 	dynamoDBKey
 	swapi.Starship
+	Avatar string   `json:"avatar"`
+	Image  string   `json:"image"`
+	Links  []Link   `json:"links"`
+	Images []string `json:"images"`
 }
